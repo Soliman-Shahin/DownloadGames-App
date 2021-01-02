@@ -1,0 +1,84 @@
+<%- include('../partials/header') -%>
+    <%- include('../partials/navbar') -%>
+
+        <!-- body content -->
+        <div class="container">
+            <form method="POST" action="<%='/game/' + game.id + '/update'%>" enctype="multipart/form-data" style="margin: 50px 0;">
+                <div class="row">
+                    <div class="col s12 m6 l5" style="margin-top: 30px;">
+                        <div class="avatar-upload">
+                            <div class="avatar-edit">
+                                <input type='file' id="imageFile" name="imageFile" accept="image/*" value="<%= '/games/' + game.gameTitle + '.png'%>" />
+                                <label class="center" for="imageFile"><i class="material-icons">add</i></label>
+                            </div>
+                            <div class="avatar-preview">
+                                <div id="imagePreview" style="background-image: url('https://i.pinimg.com/originals/5e/22/86/5e2286e02a8d3a65558ad3adf7534670.jpg');">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m6 l6 offset-l1">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">title</i>
+                                <textarea id="gameTitle" name="gameTitle" class="materialize-textarea" required><%= game.gameTitle %></textarea>
+                                <label for="gameTitle">GAME TITLE</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">mode_edit</i>
+                                <textarea id="gameDetails" name="gameDetails" class="materialize-textarea" required><%= game.gameDetails %></textarea>
+                                <label for="gameDetails">GAME DETAILS</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">settings</i>
+                                <textarea id="systemReq" name="systemReq" class="materialize-textarea" required><%= game.systemReq %></textarea>
+                                <label for="systemReq">SYSTEM REQUIREMENTS</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">storage</i>
+                                <textarea id="gameSize" name="gameSize" class="materialize-textarea" required><%= game.gameSize %></textarea>
+                                <label for="gameSize">GAME SIZE</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">today</i>
+                                <input type="text" class="datepicker" name="updated" id="updated" value="<%= game.updated.toLocaleDateString() %>" required>
+                                <label for="updated">UPDATED</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">link</i>
+                                <textarea id="downloadLink" name="downloadLink" class="materialize-textarea" required><%= game.downloadLink %></textarea>
+                                <label for="downloadLink">DOWNLOAD LINK</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">list</i>
+                                <select id="category" name="category">
+                            <option value="<%= game.category %>" disabled selected>Categories</option>
+                            <option value="Action">Action</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Racing">Racing</option>
+                            <option value="Fighting">Fighting</option>
+                          </select>
+                                <label>Choose Category</label>
+                            </div>
+                        </div>
+                        <div class="col s12 m8 l6 offset-l8" style="margin-top: 20px;">
+                            <button class="btn green waves-effect waves-light" type="submit">Save Changes
+                        <i class="material-icons left">save</i>
+                      </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <%- include('../partials/footer') -%>

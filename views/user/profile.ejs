@@ -1,0 +1,94 @@
+<%- include('../partials/header') -%>
+    <%- include('../partials/navbar') -%>
+
+        <% if (user) { %>
+            <div class="container">
+                <div class="row">
+                    <div class="col s12 m12 l6">
+                        <div class="left col l12">
+                            <form action="/users/uploadAvatar" method="POST" enctype="multipart/form-data">
+                                <img id="userAvatar" class="img-avatar img-fluid profile-pic" src="<%='/images/' + user.avatar%>" />
+                                <label class="btn upload-button" style="margin-left:-80px;"><i class="material-icons">camera</i>
+                                <input id="avatar" class="file-upload" type="file" name="avatar" hidden="" accept="image/*" onchange="readURL(this)" required>
+                               </label>
+                        </div>
+                        <div class="left col l12">
+                            <ul class="list-unstyled text-muted">
+                                <li>
+                                    <h4>
+                                        <%= user.username %>
+                                    </h4>
+                                </li>
+                                <li>
+                                    <p class="lead">
+                                        <%= user.email %>
+                                    </p>
+                                </li>
+                                <li>
+                                    <button style="width: 50%; margin-bottom: 20px;" class="btn green" type="submit"><i class="material-icons">save</i> Save Picture</button>
+                                </li>
+                                <li>
+                                    <a style="width: 50%;" href="#delUserModal-<%= user.id %>" class="btn red modal-trigger"><i class="material-icons">delete</i> Delete User</a>
+                                </li>
+                            </ul>
+                        </div>
+                        </form>
+                    </div>
+                    <div class="col s12 m12 l6" style="border-left: solid 1px black; height: 100%;padding-left: 40px;">
+                        <h4>My Favorite Games</h4>
+                        <ul style="margin-top: 30px;">
+
+                            <% let counter = 0;
+                                    for (var j = 0; j < user.favorites.length; j++) {
+                                        if (user.favorites.id !== '') counter++;
+                                        %>
+                                <li>
+                                    <a href="<%=  '/game/'  + user.favorites[j].gameId %>">
+                                        <div class="row z-depth-4">
+                                            <div class="col s3" style="margin-top: 1%;">
+                                                <img height="100px" width="75px" src="<%= '/games/' + user.favorites[j].gameTitle + '.png'%>" style="margin-right: 10px;">
+                                            </div>
+                                            <div class="col s7 center" style="margin-top: 7%;">
+                                                <h6>
+                                                    <%= user.favorites[j].gameTitle %>
+                                                </h6>
+                                            </div>
+                                            <div class="col s2 center" style="margin-top: 7%;">
+                                                <form action="<%= '/users/'+ user.id +'/'+ user.favorites[j].id +'/deleteFav'%>" method="POST">
+                                                    <button type="submit" class="btn red tooltipped" data-position="right" data-tooltip="Unfavorite"><i class="material-icons">delete</i></button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <% } %>
+                                    <li id="favCounter" hidden>
+                                        <%= counter%>
+                                    </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <%}  %>
+
+                <!-- Delete User Modal -->
+                <div class="modal fade top" id="delUserModal-<%= user.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-full-height modal-top" role="document">
+                        <div class="modal-content border-0">
+                            <div class="modal-header bg-danger text-light">
+                            </div>
+                            <div class="modal-body bg-light">
+                                <form action="<%= '/users/'+ user.id + '/deleteUser'%>" method="POST">
+                                    <h3>Are you ready to delete 'User'?</h3>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn red"><i class="material-icons">delete</i>Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <%- include('../partials/footer') -%>

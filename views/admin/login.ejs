@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/css/admin_style.css">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <strong><%- include('../partials/flashMessages') -%></strong>
+        <div class="row">
+            <div class="col s12 m6 l5" style="margin-top: 10%;">
+                <h4 style="float: left;">ADMIN<span> LOGIN</span></h4>
+                <form action="/admin/login" method="POST">
+                    <input type="text" id="type" name="type" value="admin" hidden>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">person</i>
+                        <input type="text" name="email" id="loginemail" class="validate" required>
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">lock</i>
+                        <input type="password" name="password" id="password" class="validate" required>
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <button class="btn" type="submit">GO</button>
+                    </div>
+                </form>
+                <div class="input-field col s12">
+                    <a style="color: white;" href="/admin/signup">Signup Now!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        //change background
+        window.onload = function() {
+            function changeImage() {
+                var BackgroundImg = [
+                    "/images/login-page-bg2.jpg",
+                    "/images/login-page-bg3.jpg",
+                    "/images/login-page-bg4.jpg"
+                ];
+                var i = Math.floor((Math.random() * 3));
+                document.body.style.backgroundImage = 'url("' + BackgroundImg[i] + '")';
+            }
+            window.setInterval(changeImage, 5000);
+        };
+    </script>
+    <!-- jquery cdn -->
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+</html>

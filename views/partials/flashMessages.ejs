@@ -1,0 +1,36 @@
+<% if (locals.errors) {%>
+    <% errors.forEach((err)=> {%>
+        <div class="alert red" id="successMessage" style="position: absolute; right: 70px; top: 70px;">
+            <%= err.msg%>
+        </div>
+        <%})%>
+            <%}%>
+
+
+                <% if (locals.message && message !="") {%>
+                    <div id="successMessage" role="alert" class="toast blue" style="position: absolute; right: 70px; top: 70px; z-index: 1;" aria-live="assertive" aria-atomic="true" data-autohide="false">
+                        <div class="toast-body">
+                            <h7>
+                                <%= message%>
+                            </h7>
+                        </div>
+                    </div>
+                    <%}%>
+
+
+                        <% if (locals.error && error !="") {%>
+                            <div class="alert red" id="successMessage" style="position: absolute; right: 70px; top: 70px;">
+                                <%= error%>
+                            </div>
+                            <%}%>
+
+
+                                <% if (locals.success && success !="") {%>
+                                    <div class="toast blue" role="alert" id="successMessage" style="position: absolute; right: 70px; top: 70px; margin-top: 20px;" aria-live="assertive" aria-atomic="true" data-autohide="false">
+                                        <div class="toast-header pl-2">
+                                        </div>
+                                        <div class="toast-body pl-2 pr-2 pb-2">
+                                            <strong><%= success%></strong>
+                                        </div>
+                                    </div>
+                                    <%}%>

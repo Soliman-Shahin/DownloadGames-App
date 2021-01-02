@@ -1,0 +1,58 @@
+<%- include('../partials/header') -%>
+    <%- include('../partials/navbar') -%>
+
+        <!-- body content -->
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m6 l6">
+                    <h2 class="header">
+                        <%= game.gameTitle %>
+                    </h2>
+                </div>
+                <div class="col s12 m6 l6" style="margin-top: 60px;">
+                    <a class="btn disabled right">GAME SIZE: <%= game.gameSize %></a>
+                    <a style="margin-right: 2px;" class="btn disabled right">TYPE: <%= game.category %></a>
+                    <a style="margin-right: 2px;" class="btn disabled right">UPDATED: <%= game.updated.toLocaleDateString() %></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card horizontal">
+                    <div class="col s12 m6 l6 c-image">
+                        <img height="100%" width="100%" src="<%= '/games/' + game.gameTitle + '.png'%>">
+                    </div>
+                    <div class="col s12 m6 l6">
+                        <div class="card-stacked">
+                            <div class="card-content" style="text-align: justify;">
+                                <h5>GAME DETAILS</h5>
+                                <p>
+                                    <%= game.gameDetails %>
+                                </p>
+                                <h5>SYSTEM REQUIREMENTS</h5>
+                                <p>
+                                    <%= game.systemReq %>
+                                </p>
+                            </div>
+                            <div class="card-action">
+                                <div class="col s6">
+                                    <% if (user) { %>
+                                        <form id="favForm" method="POST" action="" enctype="multipart/form-data">
+                                            <input type="text" id="user_id" name="user_id" value="<%= user.id %>" hidden>
+                                            <input type="text" id="gameId" name="gameId" value="<%= game.id %>" hidden>
+                                            <input type="text" id="gameTitle" name="gameTitle" value="<%= game.gameTitle %>" hidden>
+                                            <button class="btn orange" onclick="M.toast({classes: 'blue'})" type="submit"><i id="fav" class="material-icons">favorite_border</i></button>
+                                        </form>
+                                        <%}  %>
+                                </div>
+                                <div class="col s6">
+                                    <a href="<%= game.downloadLink %>" class="btn green right" target="blank"><i class="material-icons left">download</i> Download Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <%- include('../partials/footer') -%>

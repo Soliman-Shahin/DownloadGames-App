@@ -1,0 +1,54 @@
+<%- include('../partials/header') -%>
+    <%- include('../partials/navbar') -%>
+
+        <!-- body content -->
+        <div class="container-fluid">
+            <div class="col s12 m12 l2">
+                <p style="padding: 2px; color: white;" class="badge red z-depth-4 center">LATEST UPDATED</p>
+            </div>
+            <div id="bodyContent" class="row">
+                <% chunk.forEach((games)=> {%>
+                    <% games.sort((a, b) =>{
+                        return a.updated - b.updated })%>
+                        <% games.forEach((games)=> { %>
+                            <a href="<%=  '/game/'  + games.id %>">
+                                <div class="col s12 m4 l2">
+                                    <div class="card z-depth-3">
+                                        <div class="card-image">
+                                            <img height="300px" src="<%= '/games/' + games.gameTitle + '.png'%>">
+                                            <span class="card-title blue"><%= games.gameTitle %></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <% }); %>
+                                <%})%>
+            </div>
+
+            <div class="row">
+                <div class="col l2 offset-l5">
+                    <nav class="blue darken-1" aria-label="...">
+                        <ul>
+                            <% for (let i=1 ; i <= Math.ceil(total/18); i++) {%>
+                                <% if (pageNo == i) {%>
+                                    <li class="page-item active">
+                                        <a class="page-link" href="<%= '/home/' + i%>">
+                                            <%= i%>
+                                        </a>
+                                    </li>
+                                    <%} else { %>
+                                        <li class="page-item">
+                                            <a class="page-link" href="<%= '/home/' + i%>">
+                                                <%= i%>
+                                            </a>
+                                        </li>
+                                        <%}%>
+
+                                            <%}%>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <%- include('../partials/footer') -%>

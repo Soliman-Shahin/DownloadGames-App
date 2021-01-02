@@ -1,0 +1,232 @@
+<%- include('../partials/header') -%>
+    <!-- navbar -->
+    <nav class="blue darken-1">
+        <div class="nav-wrapper">
+            <a href="/home" class="waves-effect waves-light margin" style="margin-right: 30px;">LionGames
+                <i class="material-icons left">home</i>
+            </a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
+            <ul class="right ">
+                <li>
+                    <a class="dropdown-trigger" href="#" data-target="dropdown"><i class="material-icons left">arrow_drop_down</i>Categories</a>
+                    <ul id="dropdown" class="dropdown-content blue darken-1">
+                        <li><a href="/games/action">ACTION</a></li>
+                        <li><a href="/games/sports">SPORT</a></li>
+                        <li><a href="/games/fighting">FIGHTING</a></li>
+                        <li><a href="/games/racing">RACING</a></li>
+                        <li><a href="/home">All GAMES</a></li>
+                    </ul>
+                </li>
+                <% if (user) { %>
+                    <li>
+                        <a href="/game/uploadGame"><i class="material-icons left">upload</i>upload Game</a>
+                    </li>
+                    <%}  %>
+                        <li>
+                            <div id="searchBox" class="input-field">
+                                <input id="search" onkeyup="filterFunction()" type="search" required>
+                                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                                <i id="hide" class="material-icons">close</i>
+                                <% games.forEach((games)=> { %>
+                                    <a class="searchItem" href="<%=  '/game/'  + games.id %>">
+                                <img height="30px" width="25px" src="<%= '/games/' + games.gameTitle + '.png'%>" style="margin-right: 10px;">  <%= games.gameTitle %>
+                            </a>
+                                    <% }); %>
+                            </div>
+                        </li>
+                        <% if (!user) { %>
+                            <li>
+                                <a class="waves-effect waves-light modal-trigger margin" href="#loginModal">Login
+                                <i class="material-icons left">login</i></a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-light modal-trigger margin" href="#registerModal">sign up
+                                <i class="material-icons left">person_add</i></a>
+                            </li>
+                            <% } else { %>
+                                <li>
+                                    <img height="35px" width="35px" style="border-radius: 50%; margin-top: 15px;" src="<%='/images/' + user.avatar%>" />
+                                </li>
+                                <li style="width: 30vmin;">
+                                    <a class='dropdown-trigger center' href='#' data-target='dropMenu'>
+                                        <%= user.username%>
+                                    </a>
+                                    <!-- Dropdown Structure -->
+                                    <ul id='dropMenu' class='dropdown-content'>
+                                        <li><a class="waves-effect waves-light" href="/users/profile">Profile <i class="material-icons left">person</i></a></li>
+                                        <li><a class="waves-effect waves-light">Favorites
+                                            <span id="favoritesCounter" class="new badge" data-badge-caption=""></span>
+                                            <i class="material-icons left">favorites</i></a></li>
+                                        <li class="divider" tabindex="-1"></li>
+                                        <li>
+                                            <a class="waves-effect waves-light modal-trigger" href="#logoutModal">logout<i class="material-icons left">logout</i></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <%}  %>
+            </ul>
+        </div>
+    </nav>
+
+    <strong><%- include('../partials/flashMessages') -%></strong>
+
+    <!-- mobile navbar sidenav -->
+    <ul class="sidenav blue darken-1" id="mobile-demo">
+        <li>
+            <div id="searchBox1" class="input-field">
+                <input id="search1" onkeyup="filterFunction1()" type="search" required>
+                <label style="color: white;" class="label-icon" for="search"><i class="material-icons">search</i></label>
+                <i id="hide1" class="material-icons">close</i>
+                <% games.forEach((games)=> { %>
+                    <a class="searchItem1" href="<%=  '/game/'  + games.id %>">
+                        <img height="30px" width="25px" src="<%= '/games/' + games.gameTitle + '.png'%>" style="margin-right: 10px;">  <%= games.gameTitle %>
+                    </a>
+                    <% }); %>
+            </div>
+        </li>
+        <li>
+            <a class="dropdown-trigger" href="#" data-target="dropdown1"><i class="material-icons left">arrow_drop_down</i>Categories</a>
+            <ul id="dropdown1" class="dropdown-content blue darken-1">
+                <li><a href="/games/action">ACTION</a></li>
+                <li><a href="/games/sports">SPORT</a></li>
+                <li><a href="/games/fighting">FIGHTING</a></li>
+                <li><a href="/games/racing">RACING</a></li>
+                <li><a href="/home">All GAMES</a></li>
+            </ul>
+        </li>
+        <% if (!user) { %>
+            <li>
+                <a class="waves-effect waves-light modal-trigger margin" href="#loginModal">Login
+                <i class="material-icons left">login</i></a>
+            </li>
+            <li>
+                <a class="waves-effect waves-light modal-trigger margin" href="#registerModal">sign up
+                <i class="material-icons left">person_add</i></a>
+            </li>
+            <% } else { %>
+                <li>
+                    <a href="/game/uploadGame"><i class="material-icons left">upload</i>upload Game</a>
+                </li>
+                <li>
+                    <a class='dropdown-trigger' href='#' data-target='dropMenu1'>
+                        <%= user.username%>
+                    </a>
+                    <!-- Dropdown Structure -->
+                    <ul id='dropMenu1' class='dropdown-content blue darken-1'>
+                        <li><a class="waves-effect waves-light" href="/users/profile">Profile <i class="material-icons left">person</i></a></li>
+                        <li><a class="waves-effect waves-light" href="/users/profile">Favorites<i class="material-icons left">favorites</i></a></li>
+                        <li class="divider" tabindex="-1"></li>
+                        <li>
+                            <a class="waves-effect waves-light modal-trigger" href="#logoutModal">logout<i class="material-icons left">logout</i></a>
+                        </li>
+                    </ul>
+                </li>
+                <%}  %>
+    </ul>
+
+    <!-- carousel -->
+    <div class="carousel blue-grey darken-4">
+        <% games.forEach((games)=> { %>
+            <a style="width: 20%;" class="carousel-item" href="<%= '/game/'  + games.id %>">
+                <div class="card z-depth-3">
+                    <div class="card-image">
+                        <img height="260px" src="<%= '/games/' + games.gameTitle + '.png'%>">
+                        <span class="card-title blue"><%= games.gameTitle %></span>
+                    </div>
+                </div>
+            </a>
+            <% }); %>
+    </div>
+
+
+    <!-- Login Modal Structure -->
+    <div id="loginModal" class="modal">
+        <form action="/users/login" method="post">
+            <input type="text" id="type" name="type" value="user" hidden>
+            <div class="modal-content">
+                <h4 class="modal-title center">Login to access all services</h4>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">mail</i>
+                        <input type="text" name="email" id="loginemail" class="validate" required>
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">password</i>
+                        <span class="btn-show-pass">
+                            <i class="fa fa-eye"></i>
+                        </span>
+                        <input type="password" name="password" id="password" class="validate" required>
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <label>
+                                <input type="checkbox" />
+                                <span>Keep me login</span>
+                              </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer center">
+                <button class="btn waves-effect waves-light green accent-4" type="submit">Login
+                        <i class="material-icons left">login</i>
+                    </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- register Modal Structure -->
+    <div id="registerModal" class="modal">
+        <form action="/users/signup" method="post">
+            <input type="text" id="type" name="type" value="user" hidden>
+            <div class="modal-content">
+                <h4 class="modal-title center">Sign Up now</h4>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">mail</i>
+                        <input type="email" name="email" id="signupemail" class="validate" required>
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input type="text" name="username" id="username" class="validate" required>
+                        <label for="username">User Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">password</i>
+                        <span class="btn-show-pass">
+                            <i class="fa fa-eye"></i>
+                        </span>
+                        <input type="password" name="password" id="password" class="validate" required>
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">password</i>
+                        <span class="btn-show-pass">
+                            <i class="fa fa-eye"></i>
+                        </span>
+                        <input type="password" name="confirm_password" id="confirm_password" class="validate" required>
+                        <label for="confirm_password">Confirm Password</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer center">
+                <button class="btn waves-effect waves-light green accent-4" type="submit">Sign Up
+                        <i class="material-icons left">person_add</i>
+                    </button>
+            </div>
+        </form>
+    </div>
+
+    <% if (user) {%>
+        <!-- Logout Modal-->
+        <div class="modal" id="logoutModal">
+            <h5 class="modal-title">Ready to Leave?</h5>
+            <div class="modal-content">
+                If you ready to leave Select "Logout".
+            </div>
+            <div class="modal-footer">
+                <a class="btn red" href="/users/logout">Logout</a>
+            </div>
+        </div>
+        <%}  %>
