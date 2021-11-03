@@ -2,9 +2,18 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt-nodejs')
 
 const userSchema = new mongoose.Schema({
+    userId: String,
+    socialId: String,
+    signupType: {
+        type: String,
+        enum: ["NORMAL", "facebook", "GMAIL"],
+        default: "NORMAL"
+    },
     type: {
         type: String,
-        required: true
+        enum: ["USER", "ADMIN"],
+        trim: true,
+        default: "USER"
     },
     email: {
         type: String,

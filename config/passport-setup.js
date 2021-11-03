@@ -1,6 +1,80 @@
 const passport = require('passport')
 const localStrategy = require('passport-local').Strategy
 const User = require('../models/user_model')
+const FacebookStrategy = require('passport-facebook').Strategy
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+
+
+// Use the GoogleStrategy within Passport.
+//   Strategies in Passport require a `verify` function, which accept
+//   credentials (in this case, an accessToken, refreshToken, and Google
+//   profile), and invoke a callback with a user object.
+passport.use(new GoogleStrategy({
+        clientID: '402831207546-gu4mrsnp26mpkq2neecv47vodueoah9d.apps.googleusercontent.com',
+        clientSecret: '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',
+        callbackURL: "/users/auth/google/callback"
+    },
+    function(accessToken, refreshToken, profile, done) {
+        User.findOne({ socialId: profile.id }, function(err, user) {
+            if (user) {
+                done(null, user);
+            } else {
+                //create user
+                let newUser = new User()
+                newUser.socialId = profile.id
+                newUser.signupType = profile.provider
+                newUser.email = profile._json.email
+                newUser.username = profile.displayName
+                newUser.favorites = []
+                newUser.password = newUser.hashPassword(profile.password)
+                newUser.avatar = "profile.png"
+                    // to grt facebook img use newUser.avatar = profile.photos ? profile.photos[0].value : 'profile.png'
+                newUser.save((err, user) => {
+                    if (!err) {
+                        return done(null, user)
+                    } else {
+                        console.log(err)
+                    }
+                })
+            }
+        });
+    }
+));
+
+
+// sign up with facebook
+passport.use(new FacebookStrategy({
+        clientID: '325939069339850',
+        clientSecret: '6008c48ba080e67d6ab46ec6245869f6',
+        callbackURL: "/users/auth/facebook/callback",
+        profileFields: ['id', 'displayName', 'email', 'picture.type(large)']
+    },
+    function(accessToken, refreshToken, profile, done) {
+        User.findOne({ socialId: profile.id }, function(err, user) {
+            if (user) {
+                done(null, user);
+            } else {
+                //create user
+                let newUser = new User()
+                newUser.socialId = profile.id
+                newUser.signupType = profile.provider
+                newUser.email = profile._json.email
+                newUser.username = profile.displayName
+                newUser.favorites = []
+                newUser.password = newUser.hashPassword(profile.password)
+                newUser.avatar = "profile.png"
+                    // to grt facebook img use newUser.avatar = profile.photos ? profile.photos[0].value : 'profile.png'
+                newUser.save((err, user) => {
+                    if (!err) {
+                        return done(null, user)
+                    } else {
+                        console.log(err)
+                    }
+                })
+            }
+        });
+    }
+));
 
 // saving user object in the session
 passport.serializeUser(function(user, done) {
