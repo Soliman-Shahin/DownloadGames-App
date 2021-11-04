@@ -21,7 +21,7 @@ var upload = multer({ storage: storage })
 
 isAdmin = (req, res, next) => {
     if (req.isAuthenticated()) {
-        if (req.user.type == 'admin') {
+        if (req.user.type == 'ADMIN') {
             return next();
         }
     }

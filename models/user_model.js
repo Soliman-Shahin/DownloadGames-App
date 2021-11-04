@@ -6,8 +6,8 @@ const userSchema = new mongoose.Schema({
     socialId: String,
     signupType: {
         type: String,
-        enum: ["NORMAL", "facebook", "GMAIL"],
-        default: "NORMAL"
+        enum: ["normal", "facebook", "google"],
+        default: "normal"
     },
     type: {
         type: String,

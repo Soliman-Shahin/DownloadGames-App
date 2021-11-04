@@ -2,16 +2,13 @@ const passport = require('passport')
 const localStrategy = require('passport-local').Strategy
 const User = require('../models/user_model')
 const FacebookStrategy = require('passport-facebook').Strategy
-var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var GoogleStrategy = require('passport-google-oauth20').Strategy
 
 
-// Use the GoogleStrategy within Passport.
-//   Strategies in Passport require a `verify` function, which accept
-//   credentials (in this case, an accessToken, refreshToken, and Google
-//   profile), and invoke a callback with a user object.
+//  sign up with google
 passport.use(new GoogleStrategy({
-        clientID: '402831207546-gu4mrsnp26mpkq2neecv47vodueoah9d.apps.googleusercontent.com',
-        clientSecret: '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',
+        clientID: '765453579701-a2tkd9mbkc322kfb68i1uv8fo0tbq69m.apps.googleusercontent.com',
+        clientSecret: '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',
         callbackURL: "/users/auth/google/callback"
     },
     function(accessToken, refreshToken, profile, done) {
@@ -87,7 +84,7 @@ passport.deserializeUser(function(id, done) {
     });
 });
 
-// register user
+// register user normal
 passport.use('local.signup', new localStrategy({
     typeField: 'type',
     emailField: 'email',
@@ -127,7 +124,7 @@ passport.use('local.signup', new localStrategy({
     }
 }))
 
-//login strategy
+//login strategy normal
 passport.use('local.login', new localStrategy({
     usernameField: 'email',
     passwordField: 'password',
