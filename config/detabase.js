@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-let db = mongoose.connect('mongodb://localhost:27017/GamesApp', { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+let db = mongoose.connect('mongodb+srv://soliman:Soliman94@cluster0.kafiy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
 
     if (err) {
         console.log(err)
